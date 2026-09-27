@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-/* ===== Design Tokens (Space Grotesk / Inter / JetBrains Mono) ===== */
+/* ============================================================
+   Design tokens
+   ============================================================ */
 @theme {
   --color-bg: #080d18;
   --color-surface: #111a2d;
@@ -17,113 +19,186 @@
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* ===== Base ===== */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ============================================================
+   Base — MUST live in @layer base so Tailwind utilities
+   (padding-6, my-[22px], ...) can override it.
+   ============================================================ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 96px;
-  -webkit-text-size-adjust: 100%;
-}
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+    -webkit-text-size-adjust: 100%;
+  }
 
-body {
-  background-color: var(--color-bg);
-  color: var(--color-ink);
-  font-family: var(--font-body);
-  line-height: 1.55;
-  min-height: 100%;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-@media (hover: hover) and (pointer: fine) {
   body {
-    cursor: none;
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    min-height: 100%;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    body {
+      cursor: none;
+    }
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink-inverse);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+
+  p {
+    color: var(--color-muted);
+  }
+
+  /* Focus visibility (WCAG AA) */
+  :focus-visible {
+    outline: 2px solid var(--color-accent-2);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .skip-link:focus {
+    left: 16px;
+    top: 16px;
+    z-index: 200;
+    background: var(--color-accent);
+    color: var(--color-ink-inverse);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #22304d;
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent-2);
   }
 }
 
-::selection {
-  background: var(--color-accent);
-  color: var(--color-ink-inverse);
+/* ============================================================
+   Components — in @layer components so utilities can override
+   ============================================================ */
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1120px;
+    margin-inline: auto;
+    padding-inline: 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-pad {
+    padding-block: 88px;
+  }
+
+  .eyebrow {
+    color: var(--color-accent-2);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .eyebrow .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent-2);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 13px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.94rem;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-ink-inverse);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -8px rgba(242, 184, 7, 0.55);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--color-line);
+    color: var(--color-ink);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-accent-2);
+    color: var(--color-accent-2);
+  }
+
+  /* Marquee */
+  .marquee-track {
+    display: flex;
+    gap: 48px;
+    width: max-content;
+    animation: marquee-scroll 22s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
 }
 
-/* ===== Typography ===== */
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-display);
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: var(--color-ink);
-}
-
-p {
-  color: var(--color-muted);
-}
-
-/* ===== Focus (WCAG AA) ===== */
-:focus-visible {
-  outline: 2px solid var(--color-accent-2);
-  outline-offset: 3px;
-  border-radius: 6px;
-}
-
-.skip-link {
-  position: absolute;
-  left: -9999px;
-}
-
-.skip-link:focus {
-  left: 16px;
-  top: 16px;
-  z-index: 200;
-  background: var(--color-accent);
-  color: var(--color-ink-inverse);
-  padding: 10px 16px;
-  border-radius: 8px;
-  font-weight: 600;
-}
-
-/* ===== Layout ===== */
-.wrap {
-  width: 100%;
-  max-width: 1120px;
-  margin-inline: auto;
-  padding-inline: 28px;
-  position: relative;
-  z-index: 1;
-}
-
-.section-pad {
-  padding-block: 88px;
-}
-
-/* ===== Eyebrow ===== */
-.eyebrow {
-  color: var(--color-accent-2);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 18px;
-}
-
-.eyebrow .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent-2);
-  animation: pulse 1.8s ease-in-out infinite;
-}
-
+/* ============================================================
+   Keyframes + effects (unlayered: nothing should override these)
+   ============================================================ */
 @keyframes pulse {
   0%,
   100% {
@@ -134,42 +209,27 @@ p {
   }
 }
 
-/* ===== Buttons ===== */
-.btn {
-  display: inline-block;
-  padding: 13px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.94rem;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    background-color 0.2s ease;
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-.btn-primary {
-  background: var(--color-accent);
-  color: var(--color-ink-inverse);
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px -8px rgba(242, 184, 7, 0.55);
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-.btn-ghost {
-  border: 1px solid var(--color-line);
-  color: var(--color-ink);
-}
-
-.btn-ghost:hover {
-  border-color: var(--color-accent-2);
-  color: var(--color-accent-2);
-}
-
-/* ===== Chart animation ===== */
 .chart-line {
   stroke: var(--color-accent);
   stroke-width: 2.5;
@@ -200,40 +260,6 @@ p {
   animation: fade-in 0.4s 2.1s ease forwards;
 }
 
-@keyframes draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes fade-in {
-  to {
-    opacity: 1;
-  }
-}
-
-/* ===== Marquee ===== */
-.marquee-track {
-  display: flex;
-  gap: 48px;
-  width: max-content;
-  animation: marquee-scroll 22s linear infinite;
-}
-
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* ===== Custom cursor ===== */
 .cursor-dot,
 .cursor-ring {
   position: fixed;
@@ -275,26 +301,9 @@ p {
   }
 }
 
-/* ===== Scrollbar ===== */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #223css;
-  background: #22304d;
-  border-radius: 999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-2);
-}
-
-/* ===== Reduced motion ===== */
+/* ============================================================
+   Reduced motion
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

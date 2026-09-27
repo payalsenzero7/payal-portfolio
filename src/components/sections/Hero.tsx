@@ -18,7 +18,7 @@ function Stat({ value, suffix, label }: { value: number; suffix: string; label: 
 
 export function Hero() {
   return (
-    <header className="wrap grid items-center gap-14 py-20 pb-15 md:grid-cols-[1.05fr_0.95fr] md:py-20">
+    <header className="wrap grid items-center gap-14 pt-14 pb-12 md:grid-cols-[1.05fr_0.95fr] md:pt-20 md:pb-15">
       {/* Left column */}
       <div>
         <p className="eyebrow">
@@ -28,7 +28,7 @@ export function Hero() {
 
         <h1 className="max-w-[13ch] text-[clamp(2.2rem,4.4vw,3.6rem)]">{personalInfo.headline}</h1>
 
-        <p className="lede my-[22px] max-w-[44ch] text-[1.08rem]">{personalInfo.lede}</p>
+        <p className="lede mt-[22px] mb-8 max-w-[44ch] text-[1.08rem]">{personalInfo.lede}</p>
 
         <div className="mb-11 flex flex-wrap gap-3.5">
           <Magnetic>
@@ -52,7 +52,7 @@ export function Hero() {
 
       {/* Right column — live dashboard panel */}
       <Tilt max={8}>
-        <div className="rounded-2xl border border-line bg-linear-to-b from-surface to-surface-2 p-6 pb-5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
+        <div className="rounded-2xl border border-line bg-linear-to-b from-surface to-surface-2 px-6 pt-6.5 pb-5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
           <div className="mb-1.5 flex items-baseline justify-between">
             <h3 className="font-display text-[0.95rem] font-semibold text-ink">Inventory carrying cost</h3>
             <span className="font-mono text-[0.78rem] text-accent-2">▾ 18.4%</span>

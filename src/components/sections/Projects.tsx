@@ -11,7 +11,7 @@ export function Projects() {
           <p className="max-w-[38ch] text-[0.95rem]">Every project, led with the number that mattered most.</p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-3 md:perspective-[1000px]">
           {projects.map((project) => (
             <Tilt key={project.id} max={6} className="h-full">
               <article className="flex h-full flex-col gap-3.5 rounded-[14px] border border-line bg-surface p-6 px-5 transition-[border-color,box-shadow] duration-250 hover:border-accent/35 hover:shadow-[0_24px_44px_-20px_rgba(242,184,7,0.25)]">

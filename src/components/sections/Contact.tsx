@@ -6,7 +6,7 @@ export function Contact() {
   return (
     <section id="contact" className="section-pad wrap">
       <Reveal>
-        <div className="relative flex flex-wrap items-center justify-between gap-10 overflow-hidden rounded-[20px] border border-line bg-linear-to-b from-surface to-surface-2 px-14 py-16">
+        <div className="relative flex flex-wrap items-center justify-between gap-10 overflow-hidden rounded-[20px] border border-line bg-linear-to-b from-surface to-surface-2 px-6.5 py-10 md:px-14 md:py-16">
           <h2 className="max-w-[14ch] text-[clamp(1.5rem,3vw,2.2rem)]">{contact.heading}</h2>
 
           <div className="flex flex-wrap gap-3">
