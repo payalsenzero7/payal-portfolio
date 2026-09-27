@@ -3,8 +3,20 @@ import { useCountUp } from '../../hooks/useCountUp';
 import { Magnetic } from '../ui/Magnetic';
 import { Tilt } from '../ui/Tilt';
 
-function Stat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
-  const { ref, display } = useCountUp(value, suffix);
+function Stat({
+  value,
+  prefix,
+  suffix,
+  decimals,
+  label,
+}: {
+  value: number;
+  prefix: string;
+  suffix: string;
+  decimals: number;
+  label: string;
+}) {
+  const { ref, display } = useCountUp(value, prefix, suffix, decimals);
 
   return (
     <div>
@@ -50,16 +62,18 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Right column — live dashboard panel */}
+      {/* Right column — delay-risk panel from the supply chain analysis */}
       <Tilt max={8}>
         <div className="rounded-2xl border border-line bg-linear-to-b from-surface to-surface-2 px-6 pt-6.5 pb-5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
           <div className="mb-1.5 flex items-baseline justify-between">
-            <h3 className="font-display text-[0.95rem] font-semibold text-ink">Inventory carrying cost</h3>
-            <span className="font-mono text-[0.78rem] text-accent-2">▾ 18.4%</span>
+            <h3 className="font-display text-[0.95rem] font-semibold text-ink">Profit lost to late deliveries</h3>
+            <span className="font-mono text-[0.78rem] text-accent-2">$2.1M</span>
           </div>
-          <p className="mb-3.5 text-[0.78rem] text-muted">Q1 → Q4, after process redesign</p>
+          <p className="mb-3.5 text-[0.78rem] text-muted">
+            172,765 orders &middot; 54.7% delivered late
+          </p>
 
-          <svg viewBox="0 0 300 130" width="100%" height="140" role="img" aria-label="Inventory carrying cost trending down over four quarters">
+          <svg viewBox="0 0 300 130" width="100%" height="140" role="img" aria-label="Share of orders by days late, peaking at one day late">
             <defs>
               <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#F2B807" stopOpacity="0.28" />
@@ -68,17 +82,20 @@ export function Hero() {
             </defs>
             <path
               className="chart-fill"
-              d="M0,90 L30,78 L60,82 L90,55 L120,60 L150,40 L180,44 L210,25 L240,30 L270,14 L300,18 L300,130 L0,130 Z"
+              d="M0,124 L42,116 L84,113 L126,96 L168,102 L210,20 L252,78 L300,116 L300,130 L0,130 Z"
             />
-            <path className="chart-line-2" d="M0,105 L30,100 L60,98 L90,92 L120,88 L150,80 L180,78 L210,70 L240,66 L270,60 L300,58" />
-            <path className="chart-line" d="M0,90 L30,78 L60,82 L90,55 L120,60 L150,40 L180,44 L210,25 L240,30 L270,14 L300,18" />
-            <circle className="chart-dot" cx="300" cy="18" r="4" fill="#F2B807" />
+            <path className="chart-line-2" d="M0,124 L42,116 L84,113 L126,96 L168,102 L210,20 L252,78 L300,116" />
+            <path
+              className="chart-line"
+              d="M0,124 L42,116 L84,113 L126,96 L168,102 L210,20 L252,78 L300,116"
+            />
+            <circle className="chart-dot" cx="210" cy="20" r="4" fill="#F2B807" />
           </svg>
 
           <div className="mt-3 flex justify-between font-mono text-[0.76rem] text-muted">
-            <span>Jan</span>
-            <span>Live · Power BI</span>
-            <b className="text-accent">Dec</b>
+            <span>on time</span>
+            <span>1 day late &middot; 31%</span>
+            <b className="text-accent">4+ days</b>
           </div>
         </div>
       </Tilt>

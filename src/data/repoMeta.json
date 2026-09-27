@@ -1,0 +1,22 @@
+{
+  "supply-chain-management-project": {
+    "description": "Supply chain management analysis and delivery delay prediction using Python and machine learning.",
+    "language": "Jupyter Notebook",
+    "stars": 0,
+    "forks": 0,
+    "files": 3,
+    "pushedAt": "2026-09-27T14:11:50Z",
+    "url": "https://github.com/payalsenzero7/supply-chain-management-project",
+    "defaultBranch": "main"
+  },
+  "supply-chain-management-tableau-dashboard": {
+    "description": "Interactive Tableau dashboard for analyzing sales, inventory performance, regional trends, and supply chain KPIs.",
+    "language": null,
+    "stars": 0,
+    "forks": 0,
+    "files": 2,
+    "pushedAt": "2026-09-27T14:10:11Z",
+    "url": "https://github.com/payalsenzero7/supply-chain-management-tableau-dashboard",
+    "defaultBranch": "main"
+  }
+}
