@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, ChevronRight } from 'lucide-react';
+import { ExternalLink, ChevronRight } from 'lucide-react';
+import { GithubIcon } from './BrandIcons';
 import type { Project } from '../../types';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
 
@@ -67,7 +68,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)] border border-[var(--color-border)] hover:border-[var(--color-accent-primary)] transition-colors"
           >
-            <Github className="w-4 h-4" />
+            <GithubIcon className="w-4 h-4" />
             View Code
           </a>
           {project.liveUrl && (

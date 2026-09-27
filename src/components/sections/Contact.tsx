@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, Github, Linkedin } from 'lucide-react';
+import { Mail, MapPin, Send } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons';
 import { personalInfo } from '../../data/portfolio';
 import { SectionHeading } from '../ui/SectionHeading';
 import { Reveal } from '../ui/Reveal';
@@ -90,7 +91,7 @@ export function Contact() {
                     aria-label="GitHub"
                     className="p-3 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-accent-primary)] hover:border-[var(--color-accent-primary)] transition-all"
                   >
-                    <Github className="w-5 h-5" />
+                    <GithubIcon className="w-5 h-5" />
                   </a>
                   <a
                     href={personalInfo.linkedin}
@@ -99,7 +100,7 @@ export function Contact() {
                     aria-label="LinkedIn"
                     className="p-3 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-accent-primary)] hover:border-[var(--color-accent-primary)] transition-all"
                   >
-                    <Linkedin className="w-5 h-5" />
+                    <LinkedinIcon className="w-5 h-5" />
                   </a>
                 </div>
               </div>
@@ -160,8 +161,8 @@ export function Contact() {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
-                whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
+                whileHover={prefersReducedMotion ? undefined : { scale: 1.02 }}
+                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                 className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-[var(--color-accent-primary)] to-[var(--color-accent-secondary)] text-white font-medium hover:shadow-lg hover:shadow-[var(--color-accent-primary)]/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (

@@ -1,12 +1,13 @@
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { Mail, Heart } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '../ui/BrandIcons';
 import { personalInfo, socialLinks } from '../../data/portfolio';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const iconMap: Record<string, React.ReactNode> = {
-    Github: <Github className="w-5 h-5" />,
-    Linkedin: <Linkedin className="w-5 h-5" />,
+    Github: <GithubIcon className="w-5 h-5" />,
+    Linkedin: <LinkedinIcon className="w-5 h-5" />,
     Mail: <Mail className="w-5 h-5" />,
   };
 

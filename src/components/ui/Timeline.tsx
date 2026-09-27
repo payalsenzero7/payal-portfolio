@@ -19,10 +19,9 @@ export function Timeline({ children }: TimelineProps) {
 interface TimelineItemProps {
   children: ReactNode;
   isLeft?: boolean;
-  icon?: ReactNode;
 }
 
-export function TimelineItem({ children, isLeft = false, icon }: TimelineItemProps) {
+export function TimelineItem({ children, isLeft = false }: TimelineItemProps) {
   const prefersReducedMotion = useReducedMotion();
 
   return (

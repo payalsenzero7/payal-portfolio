@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Wrench, BarChart3, Users, Lightbulb } from 'lucide-react';
 import { skills } from '../../data/portfolio';
 import { SectionHeading } from '../ui/SectionHeading';
