@@ -1,135 +1,87 @@
-import { motion } from 'framer-motion';
-import { ArrowDown, Download, FolderOpen } from 'lucide-react';
-import { personalInfo } from '../../data/portfolio';
-import { Button } from '../ui/Button';
-import { useReducedMotion } from '../../hooks/useReducedMotion';
+import { personalInfo, stats } from '../../data/portfolio';
+import { useCountUp } from '../../hooks/useCountUp';
+import { Magnetic } from '../ui/Magnetic';
+import { Tilt } from '../ui/Tilt';
 
-export function Hero() {
-  const prefersReducedMotion = useReducedMotion();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0 },
-  };
+function Stat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+  const { ref, display } = useCountUp(value, suffix);
 
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--color-accent-primary)]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--color-accent-secondary)]/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--color-accent-primary)]/5 rounded-full blur-3xl" />
+    <div>
+      <b ref={ref} className="block font-display text-[1.8rem] font-bold text-ink">
+        {display}
+      </b>
+      <span className="text-[0.8rem] text-muted">{label}</span>
+    </div>
+  );
+}
+
+export function Hero() {
+  return (
+    <header className="wrap grid items-center gap-14 py-20 pb-15 md:grid-cols-[1.05fr_0.95fr] md:py-20">
+      {/* Left column */}
+      <div>
+        <p className="eyebrow">
+          <span className="dot" />
+          {personalInfo.eyebrow}
+        </p>
+
+        <h1 className="max-w-[13ch] text-[clamp(2.2rem,4.4vw,3.6rem)]">{personalInfo.headline}</h1>
+
+        <p className="lede my-[22px] max-w-[44ch] text-[1.08rem]">{personalInfo.lede}</p>
+
+        <div className="mb-11 flex flex-wrap gap-3.5">
+          <Magnetic>
+            <a href="#projects" className="btn btn-primary">
+              See the work
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a href={personalInfo.resumeUrl} download className="btn btn-ghost">
+              Download r&eacute;sum&eacute;
+            </a>
+          </Magnetic>
+        </div>
+
+        <div className="flex flex-wrap gap-10 border-t border-line pt-6.5">
+          {stats.map((stat) => (
+            <Stat key={stat.label} {...stat} />
+          ))}
+        </div>
       </div>
 
-      {/* Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `linear-gradient(var(--color-text-primary) 1px, transparent 1px), linear-gradient(90deg, var(--color-text-primary) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px',
-        }}
-      />
+      {/* Right column — live dashboard panel */}
+      <Tilt max={8}>
+        <div className="rounded-2xl border border-line bg-linear-to-b from-surface to-surface-2 p-6 pb-5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
+          <div className="mb-1.5 flex items-baseline justify-between">
+            <h3 className="font-display text-[0.95rem] font-semibold text-ink">Inventory carrying cost</h3>
+            <span className="font-mono text-[0.78rem] text-accent-2">▾ 18.4%</span>
+          </div>
+          <p className="mb-3.5 text-[0.78rem] text-muted">Q1 → Q4, after process redesign</p>
 
-      <div className="container relative z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="text-center max-w-4xl mx-auto"
-        >
-          {/* Greeting */}
-          <motion.p
-            variants={itemVariants}
-            transition={{ duration: 0.5 }}
-            className="text-[var(--color-accent-primary)] font-mono text-sm md:text-base mb-4"
-          >
-            Hello, I'm
-          </motion.p>
+          <svg viewBox="0 0 300 130" width="100%" height="140" role="img" aria-label="Inventory carrying cost trending down over four quarters">
+            <defs>
+              <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#F2B807" stopOpacity="0.28" />
+                <stop offset="100%" stopColor="#F2B807" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <path
+              className="chart-fill"
+              d="M0,90 L30,78 L60,82 L90,55 L120,60 L150,40 L180,44 L210,25 L240,30 L270,14 L300,18 L300,130 L0,130 Z"
+            />
+            <path className="chart-line-2" d="M0,105 L30,100 L60,98 L90,92 L120,88 L150,80 L180,78 L210,70 L240,66 L270,60 L300,58" />
+            <path className="chart-line" d="M0,90 L30,78 L60,82 L90,55 L120,60 L150,40 L180,44 L210,25 L240,30 L270,14 L300,18" />
+            <circle className="chart-dot" cx="300" cy="18" r="4" fill="#F2B807" />
+          </svg>
 
-          {/* Name */}
-          <motion.h1
-            variants={itemVariants}
-            transition={{ duration: 0.5 }}
-            className="text-5xl md:text-7xl font-bold mb-4"
-          >
-            <span className="gradient-text">{personalInfo.name}</span>
-          </motion.h1>
-
-          {/* Title */}
-          <motion.h2
-            variants={itemVariants}
-            transition={{ duration: 0.5 }}
-            className="text-2xl md:text-4xl font-semibold text-[var(--color-text-primary)] mb-6"
-          >
-            {personalInfo.title}
-          </motion.h2>
-
-          {/* Tagline */}
-          <motion.p
-            variants={itemVariants}
-            transition={{ duration: 0.5 }}
-            className="text-lg md:text-xl text-[var(--color-text-secondary)] mb-10 max-w-2xl mx-auto"
-          >
-            {personalInfo.tagline}
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            variants={itemVariants}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Button
-              variant="primary"
-              size="lg"
-              href="#projects"
-            >
-              <FolderOpen className="w-5 h-5" />
-              View Projects
-            </Button>
-            <Button
-              variant="secondary"
-              size="lg"
-              href={personalInfo.resumeUrl}
-              download
-            >
-              <Download className="w-5 h-5" />
-              Download Resume
-            </Button>
-          </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 0.5 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          >
-            <motion.div
-              animate={prefersReducedMotion ? {} : { y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              className="flex flex-col items-center gap-2 text-[var(--color-text-muted)]"
-            >
-              <span className="text-xs font-mono">Scroll to explore</span>
-              <ArrowDown className="w-4 h-4" />
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
+          <div className="mt-3 flex justify-between font-mono text-[0.76rem] text-muted">
+            <span>Jan</span>
+            <span>Live · Power BI</span>
+            <b className="text-accent">Dec</b>
+          </div>
+        </div>
+      </Tilt>
+    </header>
   );
 }

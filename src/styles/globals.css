@@ -1,147 +1,321 @@
 @import "tailwindcss";
 
-/* ===== Design Tokens ===== */
-:root {
-  /* Colors */
-  --color-bg-primary: #0a0a0f;
-  --color-bg-secondary: #12121a;
-  --color-bg-tertiary: #1a1a2e;
-  --color-accent-primary: #3b82f6;
-  --color-accent-secondary: #06b6d4;
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
-  --color-border: #1e293b;
-  --color-success: #22c55e;
-  --color-error: #ef4444;
+/* ===== Design Tokens (Space Grotesk / Inter / JetBrains Mono) ===== */
+@theme {
+  --color-bg: #080d18;
+  --color-surface: #111a2d;
+  --color-surface-2: #17223a;
+  --color-accent: #f2b807;
+  --color-accent-2: #33c2a5;
+  --color-ink: #edf1f7;
+  --color-muted: #8792aa;
+  --color-line: rgba(237, 241, 247, 0.09);
+  --color-ink-inverse: #1a1300;
 
-  /* Typography */
-  --font-heading: 'Poppins', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  /* Spacing */
-  --space-xs: 4px;
-  --space-sm: 8px;
-  --space-md: 12px;
-  --space-base: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
-  --space-3xl: 64px;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* ===== Base Styles ===== */
-* {
+/* ===== Base ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 96px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
   font-family: var(--font-body);
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  line-height: 1.6;
+  line-height: 1.55;
+  min-height: 100%;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink-inverse);
 }
 
 /* ===== Typography ===== */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  line-height: 1.2;
-  color: var(--color-text-primary);
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
 }
-
-h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; }
-h2 { font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 600; }
-h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); font-weight: 600; }
-h4 { font-size: clamp(1rem, 1.5vw, 1.25rem); font-weight: 500; }
 
 p {
-  font-size: clamp(1rem, 1.2vw, 1.125rem);
-  color: var(--color-text-secondary);
-  line-height: 1.7;
+  color: var(--color-muted);
 }
 
-a {
-  color: var(--color-accent-primary);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a:hover {
-  color: var(--color-accent-secondary);
-}
-
-/* ===== Utility Classes ===== */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--space-lg);
-}
-
-.section {
-  padding: var(--space-3xl) 0;
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.glass {
-  background: rgba(18, 18, 26, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
-}
-
-/* ===== Focus Styles (Accessibility) ===== */
+/* ===== Focus (WCAG AA) ===== */
 :focus-visible {
-  outline: 2px solid var(--color-accent-primary);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
-/* ===== Reduced Motion ===== */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  left: 16px;
+  top: 16px;
+  z-index: 200;
+  background: var(--color-accent);
+  color: var(--color-ink-inverse);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ===== Layout ===== */
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.section-pad {
+  padding-block: 88px;
+}
+
+/* ===== Eyebrow ===== */
+.eyebrow {
+  color: var(--color-accent-2);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.eyebrow .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent-2);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-block;
+  padding: 13px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.94rem;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-ink-inverse);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -8px rgba(242, 184, 7, 0.55);
+}
+
+.btn-ghost {
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-accent-2);
+  color: var(--color-accent-2);
+}
+
+/* ===== Chart animation ===== */
+.chart-line {
+  stroke: var(--color-accent);
+  stroke-width: 2.5;
+  fill: none;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: draw 2.1s 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.chart-line-2 {
+  stroke: var(--color-accent-2);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  opacity: 0.55;
+  animation: draw 2.1s 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.chart-fill {
+  fill: url(#chartGradient);
+  opacity: 0;
+  animation: fade-in 1.2s 1.3s ease forwards;
+}
+
+.chart-dot {
+  opacity: 0;
+  animation: fade-in 0.4s 2.1s ease forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== Marquee ===== */
+.marquee-track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  animation: marquee-scroll 22s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ===== Custom cursor ===== */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999;
+  border-radius: 50%;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(242, 184, 7, 0.5);
+  transition:
+    width 0.2s ease,
+    height 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.cursor-ring.is-hover {
+  width: 56px;
+  height: 56px;
+  background: rgba(242, 184, 7, 0.08);
+  border-color: var(--color-accent-2);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #223css;
+  background: #22304d;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-2);
+}
+
+/* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
 
-/* ===== Selection ===== */
-::selection {
-  background: var(--color-accent-primary);
-  color: white;
-}
+  .chart-line,
+  .chart-line-2 {
+    stroke-dashoffset: 0;
+  }
 
-/* ===== Scrollbar ===== */
-::-webkit-scrollbar {
-  width: 8px;
-}
+  .chart-fill,
+  .chart-dot {
+    opacity: 1;
+  }
 
-::-webkit-scrollbar-track {
-  background: var(--color-bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent-primary);
+  .marquee-track {
+    animation: none;
+  }
 }
