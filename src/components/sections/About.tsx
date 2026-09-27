@@ -22,10 +22,12 @@ export function About() {
 
           {/* Copy */}
           <div>
-            <p className="eyebrow">
+            {/* An <h2> so the section appears in the document outline.
+                The .eyebrow class keeps the exact visual from the design. */}
+            <h2 className="eyebrow">
               <span className="dot" />
               About
-            </p>
+            </h2>
 
             <p className="mb-4 text-[1.02rem]">
               <strong className="font-semibold text-ink">{personalInfo.aboutLead}</strong>{' '}

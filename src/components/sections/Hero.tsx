@@ -66,7 +66,7 @@ export function Hero() {
       <Tilt max={8}>
         <div className="rounded-2xl border border-line bg-linear-to-b from-surface to-surface-2 px-6 pt-6.5 pb-5 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)]">
           <div className="mb-1.5 flex items-baseline justify-between">
-            <h3 className="font-display text-[0.95rem] font-semibold text-ink">Profit lost to late deliveries</h3>
+            <p className="font-display text-[0.95rem] font-semibold text-ink">Profit lost to late deliveries</p>
             <span className="font-mono text-[0.78rem] text-accent-2">$2.1M</span>
           </div>
           <p className="mb-3.5 text-[0.78rem] text-muted">
